@@ -1,10 +1,8 @@
 #! /usr/bin/env python
 
-
+    
 repeatlist=[]
 def hay(s,t):
-#    repeatlist = [ n for n in range(len(s)) 
-#        if s.find(t,n) == n]
     for n in range(len(s)): 
         if s.find(t,n) == n:    
             repeatlist.append(s.find(t,n))   

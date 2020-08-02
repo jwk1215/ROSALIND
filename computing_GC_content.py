@@ -1,24 +1,35 @@
 #! /usr/bin/env python
 
-"""
-fasta = 'CCACCCTCGTGGTATGGCTAGGCATTCAGGAACCGGAGAACGCTTCAGACCAGCCCGGACTGGGAACCTGCGGGCAGTAGGTGGAAT'
+def calculategc(dna):
+    gc = 0.0
+    for i in dna:
+        if i == "G":
+            gc += 1.0
+        if i == "C":
+            gc += 1.0
+    gc = gc/len(dna)*100
+    return gc
 
-num0 = fasta.count('C')
-num1 = fasta.count('G')   
-num2 = num0+num1 
+def gccontent(fasta):
+    f = open(fasta, 'r')
+    rawdna = ""
+    for line in f:
+        rawdna += line
+    #Split file into fragments
+    fragments = rawdna.split('\n')
+    fragmentgc = []
 
-print((num2/len(fasta))*100)
-"""
+    #Calculate the GC for each fragment
+    for i in range(len(fragments)):
+        fragmentgc.append(calculategc(fragments[i]))
+    
+    #Return the label, aka index-1 of the fragment with max GC
+    print fragments[fragmentgc.index(max(fragmentgc))-1].strip('>')
+    print max(fragmentgc)
+    #f = open('ini5_output.txt', 'w')
+    #f.write(blablabla)
+    #f.close()
 
-f = 'GC.txt'
-
-with open(f, 'r') as handle:
-    for line in handle:
-        if line.startswith('>'):
-            continue
-        ''.join(line)
-        print(line)
-
-
-
+#Test
+gccontent('rosalind_gc.txt')
 
